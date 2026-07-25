@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Package {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String?
+
+  versions    PackageVersion[]
+
+  trustSignal TrustSignal?
+
+  analysisRuns AnalysisRun[]
+}
+
+model PackageVersion {
+  id Int @id @default(autoincrement())
+
+  version String
+
+  packageId Int
+
+  package Package @relation(fields: [packageId], references: [id])
+}
+
+model TrustSignal {
+  id Int @id @default(autoincrement())
+
+  downloads Int?
+  stars Int?
+  forks Int?
+  maintainers Int?
+
+  packageId Int @unique
+
+  package Package @relation(fields: [packageId], references: [id])
+}
+
+model AnalysisRun {
+  id Int @id @default(autoincrement())
+
+  score Int?
+
+  status String?
+
+  createdAt DateTime @default(now())
+
+  packageId Int
+
+  package Package @relation(fields: [packageId], references: [id])
+
+  @@index([packageId])
+}
