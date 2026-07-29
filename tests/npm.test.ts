@@ -9,10 +9,7 @@ describe("normalizeNpmPackage", () => {
         "19.2.8": {},
         "19.2.7": {},
       },
-      maintainers: [
-        { name: "fb" },
-        { name: "react-bot" },
-      ],
+      maintainers: [{ name: "fb" }, { name: "react-bot" }],
     };
 
     const result = normalizeNpmPackage(input);
@@ -24,4 +21,37 @@ describe("normalizeNpmPackage", () => {
       maintainers: 2,
     });
   });
+});
+
+  it("returns 0 maintainers when maintainers is undefined", () => {
+  // Arrange
+  const input = {
+    name: "react",
+    versions: {
+      "19.2.8": {},
+    },
+  };
+
+  // Act
+  const result = normalizeNpmPackage(input);
+
+  // Assert
+  expect(result.maintainers).toBe(0);
+});
+  it("keeps the description when it exists", () => {
+  // Arrange
+  const input = {
+    name: "react",
+    description: "React library",
+    versions: {
+      "19.2.8": {},
+    },
+    maintainers: [],
+  };
+
+  // Act
+  const result = normalizeNpmPackage(input);
+
+  // Assert
+  expect(result.description).toBe("React library");
 });
