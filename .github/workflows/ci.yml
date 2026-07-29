@@ -12,7 +12,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-
+    
     steps:
       - uses: actions/checkout@v4
 
@@ -26,8 +26,11 @@ jobs:
 
       - run: pnpm install
 
+      - run: pnpm prisma generate
+
       - run: pnpm lint
 
       - run: pnpm test
 
       - run: pnpm build
+

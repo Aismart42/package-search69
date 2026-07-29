@@ -5,12 +5,14 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postinstall": "prisma generate",
     "start": "next start",
     "lint": "eslint",
     "format": "prettier --write .",
     "test": "vitest",
     "test:coverage": "vitest --coverage",
     "prepare": "husky"
+    
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
