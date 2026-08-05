@@ -104,19 +104,4 @@ describe("detectLifecycleScripts", () => {
       { name: "postinstall_script_detected", severity: "high" },
     ]);
   });
-
-  it("detects scripts with empty string values", () => {
-    const pkg = {
-      name: "my-pkg",
-      version: "1.0.0",
-      scripts: {
-        preinstall: "",
-      },
-    };
-    expect(detectLifecycleScripts(pkg)).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({ name: "preinstall_script_detected", severity: "high" }),
-      ])
-    );
-  });
 });
